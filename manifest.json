@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "Udemy Transcript TTS (Free)",
+  "description": "Reads Udemy captions/transcript in real time using the browser's built-in voices.",
+  "version": "0.1.53",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://*.udemy.com/*",
+    "http://127.0.0.1:8765/*",
+    "http://localhost:8765/*"
+  ],
+  "action": {
+    "default_title": "Udemy Transcript TTS",
+    "default_popup": "popup.html"
+  },
+  "options_page": "config.html",
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.udemy.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
+
+
+

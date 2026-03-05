@@ -1,0 +1,14 @@
+# Local data
+cursos/
+log/
+
+# External/local integration scripts
+integration/
+*.ps1
+*.bat
+*.vbs
+
+# System/editor
+.DS_Store
+Thumbs.db
+*.tmp

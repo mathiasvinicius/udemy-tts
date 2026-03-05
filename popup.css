@@ -1,0 +1,147 @@
+* {
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f6f7fb;
+  color: #101623;
+}
+
+body.compact {
+  min-width: 360px;
+}
+
+body.config {
+  min-width: 520px;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #eef2ff 0%, #f8fafc 100%);
+}
+
+main {
+  padding: 12px;
+}
+
+.configContainer {
+  min-height: 100vh;
+  width: 100%;
+  padding: 24px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.configCard {
+  width: 100%;
+  max-width: 760px;
+  background: #ffffff;
+  border: 1px solid #dbe2f0;
+  border-radius: 14px;
+  box-shadow: 0 10px 28px rgba(16, 22, 35, 0.08);
+  padding: 16px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.configCard .header {
+  border-bottom: 1px solid #dbe2f0;
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 16px;
+}
+
+h2 {
+  margin: 8px 0;
+  font-size: 14px;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #dbe2f0;
+  margin: 10px 0;
+}
+
+.row,
+.stack {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.row {
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.stack {
+  flex-direction: column;
+  gap: 4px;
+}
+
+select,
+input[type="text"],
+input[type="range"],
+button,
+textarea {
+  width: 100%;
+}
+
+button {
+  border: 0;
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: #1d4ed8;
+  color: #fff;
+  cursor: pointer;
+}
+
+button.ghost {
+  width: auto;
+  background: #e7ecfb;
+  color: #1e3a8a;
+  padding: 6px 10px;
+}
+
+button.iconBtn {
+  width: 34px;
+  min-width: 34px;
+  height: 34px;
+  padding: 0;
+  border-radius: 999px;
+  background: #e7ecfb;
+  color: #1e3a8a;
+  font-size: 18px;
+  line-height: 1;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+#status {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: #4b5563;
+}
+
+.actions {
+  gap: 6px;
+}
+
+textarea {
+  margin-top: 8px;
+  font-family: Consolas, monospace;
+  font-size: 11px;
+}

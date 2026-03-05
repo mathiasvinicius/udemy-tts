@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Udemy Transcript TTS</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body class="compact">
+    <main>
+      <div class="header">
+        <h1>Udemy TTS</h1>
+        <button id="openConfigBtn" type="button" class="iconBtn" title="Configurações" aria-label="Configurações">⚙️</button>
+      </div>
+
+      <label class="row">
+        <span>Ativar</span>
+        <input id="enabled" type="checkbox" />
+      </label>
+
+      <label class="stack">
+        <span>Fonte</span>
+        <select id="sourceMode">
+          <option value="track">Legenda do player</option>
+          <option value="transcript">Painel de transcrição</option>
+        </select>
+      </label>
+
+      <label class="stack">
+        <span>Voz</span>
+        <select id="voice"></select>
+      </label>
+
+      <label class="stack">
+        <span>Velocidade (<output id="rateOut">1.0</output>)</span>
+        <input id="rate" type="range" min="0.5" max="2" step="0.1" />
+      </label>
+
+      <label class="row">
+        <span>Modo automático (acelera se atrasar)</span>
+        <input id="autoRate" type="checkbox" />
+      </label>
+
+      <label class="stack">
+        <span>Volume (<output id="volumeOut">1.0</output>)</span>
+        <input id="volume" type="range" min="0" max="1" step="0.1" />
+      </label>
+
+      <label class="row">
+        <span>Debug</span>
+        <input id="debug" type="checkbox" />
+      </label>
+
+      <hr />
+      <h2>Modo Resumo</h2>
+
+      <label class="row">
+        <span>Salvar transcrição local (desativado)</span>
+        <input id="summaryMode" type="checkbox" disabled />
+      </label>
+
+      <label class="row">
+        <span>Auto resumo (desativado)</span>
+        <input id="autoSummary" type="checkbox" disabled />
+      </label>
+
+      <p id="status"></p>
+    </main>
+    <script src="popup.js"></script>
+  </body>
+</html>
