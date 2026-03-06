@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Udemy Transcript TTS (Free)",
   "description": "Reads Udemy captions/transcript in real time using the browser's built-in voices.",
-  "version": "0.1.53",
+  "version": "0.1.54",
   "permissions": [
     "storage"
   ],
