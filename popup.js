@@ -8,8 +8,6 @@ const els = {
   volume: document.getElementById("volume"),
   volumeOut: document.getElementById("volumeOut"),
   debug: document.getElementById("debug"),
-  summaryMode: document.getElementById("summaryMode"),
-  autoSummary: document.getElementById("autoSummary"),
   openConfigBtn: document.getElementById("openConfigBtn"),
   status: document.getElementById("status")
 };
@@ -24,9 +22,26 @@ function queryActiveTab() {
   return chrome.tabs.query({ active: true, currentWindow: true });
 }
 
-async function sendToActiveTab(message) {
-  const [tab] = await queryActiveTab();
-  if (!tab?.id) throw new Error("Nenhuma aba ativa.");
+function isUdemyUrl(url) {
+  return /https:\/\/(?:[^/]+\.)?udemy\.com\//i.test(String(url || ""));
+}
+
+function queryUdemyTabs() {
+  return chrome.tabs.query({ url: ["https://*.udemy.com/*"] });
+}
+
+async function getPreferredUdemyTab() {
+  const [active] = await queryActiveTab();
+  if (active?.id && isUdemyUrl(active.url)) {
+    return active;
+  }
+  const tabs = await queryUdemyTabs();
+  return tabs[0] || null;
+}
+
+async function sendToUdemyTab(message) {
+  const tab = await getPreferredUdemyTab();
+  if (!tab?.id) throw new Error("Nenhuma aba da Udemy aberta.");
   return chrome.tabs.sendMessage(tab.id, message);
 }
 
@@ -74,7 +89,7 @@ function syncRateModeUI() {
 async function saveState() {
   try {
     const state = readStateFromUI();
-    await sendToActiveTab({ type: "SET_STATE", state });
+    await sendToUdemyTab({ type: "SET_STATE", state });
     cachedState = { ...cachedState, ...state };
     setStatus("Configuração salva.");
   } catch (error) {
@@ -94,8 +109,6 @@ function wireEvents() {
     syncRateModeUI();
     saveState();
   });
-  els.summaryMode.addEventListener("change", saveState);
-  els.autoSummary.addEventListener("change", saveState);
   els.volume.addEventListener("input", () => {
     els.volumeOut.textContent = Number(els.volume.value).toFixed(1);
   });
@@ -109,7 +122,7 @@ function wireEvents() {
 async function init() {
   wireEvents();
   try {
-    const response = await sendToActiveTab({ type: "GET_STATE" });
+    const response = await sendToUdemyTab({ type: "GET_STATE" });
     if (!response?.ok) throw new Error("Resposta inválida da aba.");
 
     const { state } = response;
@@ -123,10 +136,6 @@ async function init() {
     els.volume.value = state.volume ?? 1;
     els.volumeOut.textContent = Number(els.volume.value).toFixed(1);
     els.debug.checked = !!state.debug;
-    els.summaryMode.checked = false;
-    els.summaryMode.disabled = true;
-    els.autoSummary.checked = false;
-    els.autoSummary.disabled = true;
     populateVoices(state.voices || [], state.voiceURI || "");
     setStatus("Pronto.");
   } catch (_) {

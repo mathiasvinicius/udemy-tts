@@ -9,8 +9,7 @@ const DEFAULT_STATE = {
   volume: 1.0,
   debug: false,
   summaryMode: false,
-  autoSummary: false,
-  integrationUrl: "http://127.0.0.1:8765"
+  autoSummary: false
 };
 
 const els = {
@@ -27,12 +26,6 @@ const els = {
   volume: document.getElementById("volume"),
   volumeOut: document.getElementById("volumeOut"),
   debug: document.getElementById("debug"),
-  summaryMode: document.getElementById("summaryMode"),
-  autoSummary: document.getElementById("autoSummary"),
-  integrationUrl: document.getElementById("integrationUrl"),
-  checkIntegrationBtn: document.getElementById("checkIntegrationBtn"),
-  summarizeNowBtn: document.getElementById("summarizeNowBtn"),
-  installIntegrationBtn: document.getElementById("installIntegrationBtn"),
   stopBtn: document.getElementById("stopBtn"),
   refreshLogBtn: document.getElementById("refreshLogBtn"),
   copyLogBtn: document.getElementById("copyLogBtn"),
@@ -106,32 +99,6 @@ async function broadcastStateToUdemyTabs(state) {
   return { total: tabs.length, applied };
 }
 
-async function checkIntegrationDirect(base) {
-  const bases = [base || "http://127.0.0.1:8765", "http://127.0.0.1:8765", "http://localhost:8765"];
-  const uniq = [...new Set(bases.map((b) => String(b).replace(/\/+$/, "")))];
-  return new Promise((resolve, reject) => {
-    chrome.runtime.sendMessage(
-      {
-        type: "INTEGRATION_REQUEST",
-        path: "/health",
-        method: "GET",
-        bases: uniq
-      },
-      (response) => {
-        if (chrome.runtime.lastError) {
-          reject(new Error(chrome.runtime.lastError.message || "runtime error"));
-          return;
-        }
-        if (!response?.ok) {
-          reject(new Error(response?.error || "integration request failed"));
-          return;
-        }
-        resolve(response.data || {});
-      }
-    );
-  });
-}
-
 function populateVoices(voices, selectedVoiceURI) {
   els.voice.innerHTML = "";
   const sorted = [...(voices || [])].sort((a, b) => {
@@ -197,11 +164,6 @@ function applyStateToUI(state, voices = []) {
   els.volume.value = state.volume ?? 1;
   els.volumeOut.textContent = Number(els.volume.value).toFixed(1);
   els.debug.checked = !!state.debug;
-  els.summaryMode.checked = false;
-  els.summaryMode.disabled = true;
-  els.autoSummary.checked = false;
-  els.autoSummary.disabled = true;
-  els.integrationUrl.value = state.integrationUrl || "http://127.0.0.1:8765";
   populateVoices(voices, state.voiceURI || "");
 }
 
@@ -218,27 +180,20 @@ function readStateFromUI() {
     volume: Number(els.volume.value),
     debug: els.debug.checked,
     summaryMode: false,
-    autoSummary: false,
-    integrationUrl: (els.integrationUrl.value || "").trim() || "http://127.0.0.1:8765"
+    autoSummary: false
   };
 }
 
 function renderLiveState(state, online = false) {
   const live = state?.live || {};
-  const ctx = state?.summaryContext || {};
   const lines = [
     `udemy: ${online ? "conectado" : "sem aba conectada"}`,
     `sourceMode: ${state?.sourceMode || "-"}`,
-    `queue: ${Number(state?.queueSize || 0)} | bufferResumo: ${Number(state?.summaryBufferSize || 0)}`,
-    `curso: ${live.currentCourse || ctx.course || "-"}`,
-    `aula: ${live.currentLesson || ctx.lesson || "-"}`,
+    `queue: ${Number(state?.queueSize || 0)}`,
+    `curso: ${live.currentCourse || "-"}`,
+    `aula: ${live.currentLesson || "-"}`,
     `chave: ${live.currentKey || "-"}`,
     `ultimaCaptura: ${live.lastCaptureAt || "-"} (${live.lastCaptureSource || "-"})`,
-    `ultimoAppend: ${live.lastAppendAt || "-"} (${live.lastAppendTarget || "-"} +${Number(
-      live.lastAppendCount || 0
-    )})`,
-    `ultimoResumo: ${live.lastSummaryAt || "-"} (${live.lastSummaryTarget || "-"})`,
-    `fonteResumo: ${live.lastSummarySource || "-"}`,
     `erro: ${live.lastError || "-"}`
   ];
   els.liveBox.value = lines.join("\n");
@@ -299,9 +254,6 @@ function wireEvents() {
     refreshAutoBoundsOutputs();
   });
   els.autoRateMax.addEventListener("change", saveState);
-  els.summaryMode.addEventListener("change", saveState);
-  els.autoSummary.addEventListener("change", saveState);
-  els.integrationUrl.addEventListener("change", saveState);
   els.volume.addEventListener("input", () => {
     els.volumeOut.textContent = Number(els.volume.value).toFixed(1);
   });
@@ -345,24 +297,6 @@ function wireEvents() {
     } catch (error) {
       setStatus(`Falha ao limpar: ${error.message}`);
     }
-  });
-
-  els.checkIntegrationBtn.addEventListener("click", async () => {
-    try {
-      const base = (els.integrationUrl.value || "").trim() || "http://127.0.0.1:8765";
-      await checkIntegrationDirect(base);
-      setStatus("Integração OK.");
-    } catch (error) {
-      setStatus(`Falha no teste: ${error.message}`);
-    }
-  });
-
-  els.summarizeNowBtn.addEventListener("click", async () => {
-    setStatus("Resumo/salvamento está desativado temporariamente.");
-  });
-
-  els.installIntegrationBtn.addEventListener("click", () => {
-    chrome.tabs.create({ url: chrome.runtime.getURL("integration.html") });
   });
 }
 

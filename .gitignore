@@ -8,6 +8,9 @@ integration/
 *.bat
 *.vbs
 
+# Build artifacts
+dist/
+
 # System/editor
 .DS_Store
 Thumbs.db

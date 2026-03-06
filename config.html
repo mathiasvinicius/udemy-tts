@@ -10,90 +10,69 @@
     <main class="configContainer">
       <section class="configCard">
         <div class="header">
-          <h1>Configurações detalhadas</h1>
+          <div>
+            <h1>Configurações detalhadas</h1>
+            <p class="subtitle">Ajuste fino de voz, velocidade e diagnóstico</p>
+          </div>
         </div>
 
-      <label class="row">
-        <span>Ativar</span>
-        <input id="enabled" type="checkbox" />
-      </label>
+        <label class="row toggle">
+          <span>Ativar</span>
+          <input id="enabled" type="checkbox" />
+        </label>
 
-      <label class="stack">
-        <span>Fonte</span>
-        <select id="sourceMode">
-          <option value="track">Legenda do player</option>
-          <option value="transcript">Painel de transcrição</option>
-        </select>
-      </label>
+        <label class="stack">
+          <span>Fonte</span>
+          <select id="sourceMode">
+            <option value="track">Legenda do player</option>
+            <option value="transcript">Painel de transcrição</option>
+          </select>
+        </label>
 
-      <label class="stack">
-        <span>Voz</span>
-        <select id="voice"></select>
-      </label>
+        <label class="stack">
+          <span>Voz</span>
+          <select id="voice"></select>
+        </label>
 
-      <label class="stack">
-        <span>Velocidade (<output id="rateOut">1.0</output>)</span>
-        <input id="rate" type="range" min="0.5" max="2" step="0.1" />
-      </label>
+        <label class="stack">
+          <span>Velocidade (<output id="rateOut">1.0</output>)</span>
+          <input id="rate" type="range" min="0.5" max="2" step="0.1" />
+        </label>
 
-      <label class="row">
-        <span>Modo automático (acelera se atrasar)</span>
-        <input id="autoRate" type="checkbox" />
-      </label>
+        <label class="row">
+          <span>Modo automático (acelera se atrasar)</span>
+          <input id="autoRate" type="checkbox" />
+        </label>
 
-      <label class="stack">
-        <span>Mínimo automático (<output id="autoRateMinOut">1.3</output>)</span>
-        <input id="autoRateMin" type="range" min="0.5" max="2" step="0.1" />
-      </label>
+        <label class="stack">
+          <span>Mínimo automático (<output id="autoRateMinOut">1.3</output>)</span>
+          <input id="autoRateMin" type="range" min="0.5" max="2" step="0.1" />
+        </label>
 
-      <label class="stack">
-        <span>Máximo automático (<output id="autoRateMaxOut">1.8</output>)</span>
-        <input id="autoRateMax" type="range" min="0.5" max="2" step="0.1" />
-      </label>
+        <label class="stack">
+          <span>Máximo automático (<output id="autoRateMaxOut">1.8</output>)</span>
+          <input id="autoRateMax" type="range" min="0.5" max="2" step="0.1" />
+        </label>
 
-      <label class="stack">
-        <span>Volume (<output id="volumeOut">1.0</output>)</span>
-        <input id="volume" type="range" min="0" max="1" step="0.1" />
-      </label>
+        <label class="stack">
+          <span>Volume (<output id="volumeOut">1.0</output>)</span>
+          <input id="volume" type="range" min="0" max="1" step="0.1" />
+        </label>
 
-      <label class="row">
-        <span>Debug</span>
-        <input id="debug" type="checkbox" />
-      </label>
+        <label class="row">
+          <span>Debug</span>
+          <input id="debug" type="checkbox" />
+        </label>
 
-      <hr />
-      <h2>Modo Resumo</h2>
-
-      <label class="row">
-        <span>Salvar transcrição local (desativado)</span>
-        <input id="summaryMode" type="checkbox" disabled />
-      </label>
-
-      <label class="row">
-        <span>Auto resumo (desativado)</span>
-        <input id="autoSummary" type="checkbox" disabled />
-      </label>
-
-      <label class="stack">
-        <span>URL integração local</span>
-        <input id="integrationUrl" type="text" placeholder="http://127.0.0.1:8765" />
-      </label>
-
-      <div class="row actions">
-        <button id="checkIntegrationBtn" type="button">Testar integração</button>
-        <button id="summarizeNowBtn" type="button" disabled>Resumir aula agora (desativado)</button>
-      </div>
-      <button id="installIntegrationBtn" type="button">Como instalar integração</button>
-
-      <button id="stopBtn" type="button">Parar leitura</button>
-      <h2>Estado ao vivo</h2>
-      <textarea id="liveBox" rows="7" readonly></textarea>
-      <div class="row actions">
-        <button id="refreshLogBtn" type="button">Atualizar log</button>
-        <button id="copyLogBtn" type="button">Copiar log</button>
-        <button id="clearLogBtn" type="button">Limpar log</button>
-      </div>
-      <textarea id="logBox" rows="8" readonly></textarea>
+        <button id="stopBtn" type="button">Parar leitura</button>
+        <h2>Estado ao vivo</h2>
+        <textarea id="liveBox" rows="7" readonly></textarea>
+        <div class="row actions">
+          <button id="refreshLogBtn" type="button">Atualizar log</button>
+          <button id="copyLogBtn" type="button">Copiar log</button>
+          <button id="clearLogBtn" type="button">Limpar log</button>
+        </div>
+        <textarea id="logBox" rows="8" readonly></textarea>
         <p id="status"></p>
       </section>
     </main>

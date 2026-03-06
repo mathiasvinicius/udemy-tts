@@ -1,26 +1,42 @@
-# Udemy TTS (Free)
+# Udemy Transcript TTS (Free)
 
-Muitas vezes, ficar preso na legenda tira o foco do que realmente importa: entender o conteúdo da aula.
+Ficar preso na legenda tira foco do conteudo principal da aula.  
+Esta extensao usa a voz nativa do navegador para **ler as legendas da Udemy em tempo real**, com sincronizacao e ajuste automatico de velocidade para reduzir atrasos.
 
-Esta extensão foi criada para resolver isso.
+## Principais recursos
 
-O objetivo é usar a voz nativa do navegador para ler as legendas da Udemy de forma sincronizada com o vídeo, permitindo que você acompanhe a explicação com mais fluidez, menos esforço visual e melhor concentração.
+- Leitura TTS da **legenda do player** (modo padrao).
+- Opcao de fonte por **painel de transcricao**.
+- Vozes nativas do Edge/Chrome (sem custo adicional por API).
+- Modo automatico de velocidade com limites configuraveis.
+- Configuracao detalhada (voz, volume, debug e diagnostico).
 
-## O que ela faz
+## Escopo atual
 
-- Lê as legendas do player da Udemy em tempo real.
-- Usa vozes nativas do Edge/Chrome (sem custo por uso).
-- Ajusta automaticamente a velocidade da fala para reduzir atraso.
-- Permite configurar voz, velocidade manual, modo automático e volume.
+- Modo resumo/salvamento local e integracoes externas: **desativados nesta build**.
+- Foco da versao de loja: estabilidade da leitura TTS sincronizada.
 
-## Por que usar
+## Privacidade
 
-- Menos cansaço ao ficar alternando entre vídeo e texto.
-- Mais foco no raciocínio da aula.
-- Melhor experiência para estudo em PT-BR.
-- Solução local, simples e gratuita.
+- A extensao nao coleta nem envia dados para servidores proprios.
+- O processamento acontece localmente no navegador.
+- Veja detalhes em [PRIVACY.md](PRIVACY.md).
 
-## Status atual
+## Suporte
 
-- Modo resumo/salvamento local: desativado temporariamente.
-- Foco atual: leitura TTS da legenda do player + vozes nativas do navegador.
+- Issues: https://github.com/mathiasvinicius/udemy-tts/issues
+- Email: vinicius.mathias@gmail.com
+- Guia rapido: [SUPPORT.md](SUPPORT.md)
+
+## Desenvolvimento local
+
+1. Edge -> `edge://extensions`
+2. Ative `Modo de desenvolvedor`
+3. Clique em `Carregar sem compactacao`
+4. Selecione a pasta deste repositorio
+
+## Empacotamento para loja
+
+- Arquivo de listing: [edge-listing.md](edge-listing.md)
+- Checklist de publicacao: [tasklist.md](tasklist.md)
+
