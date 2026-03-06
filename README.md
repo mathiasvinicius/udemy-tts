@@ -16,6 +16,16 @@ Esta extensao usa a voz nativa do navegador para **ler as legendas da Udemy em t
 - Modo resumo/salvamento local e integracoes externas: **desativados nesta build**.
 - Foco da versao de loja: estabilidade da leitura TTS sincronizada.
 
+## Screenshots
+
+### Popup
+
+![Popup - Udemy Transcript TTS](prints/edge-store/screenshot-01-popup-1280x800.png)
+
+### Configuracoes
+
+![Configuracoes - Udemy Transcript TTS](prints/edge-store/screenshot-02-config-1280x800.png)
+
 ## Privacidade
 
 - A extensao nao coleta nem envia dados para servidores proprios.
